@@ -7,10 +7,15 @@ public class Player : MonoBehaviour
     public float m_Speed = 0f;
     public float m_LookSpeed = 0f;
     public Transform m_AimTarget;
-
+    public LineRenderer m_LineRenderer;
+    Camera m_Camera;
+    public GameObject m_Bullet;
+    public Transform m_GunBarrel;
+    public Animation m_BarrelRoll;
     // Start is called before the first frame update
     void Start()
     {
+        m_Camera = Camera.main;
     }
 
     // Update is called once per frame
@@ -21,6 +26,23 @@ public class Player : MonoBehaviour
         RotationLook(h, v, m_LookSpeed);
         MovePlayer(h,v,m_Speed);
         HorizontalLean(transform, h, 80, .1f);
+       
+       if (Input.GetMouseButtonDown(0))
+        {
+
+            //Vector3 mousePos = Input.mousePosition;
+            //Vector3 newMousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            //Quaternion shotAngle = Quaternion.FromToRotation(m_GunBarrel.position, newMousePos);
+            //GameObject bulletTransform =  Instantiate(m_Bullet, m_GunBarrel.position, shotAngle);
+            GameObject bulletTransform = Instantiate(m_Bullet, m_GunBarrel.position, m_GunBarrel.rotation);
+
+        }
+
+       if (Input.GetKeyDown("r")) 
+        {
+            //DO A BARREL ROLL
+            m_BarrelRoll.Play();
+        }
 
     }
 
