@@ -10,7 +10,9 @@ public class Player : MonoBehaviour
     public LineRenderer m_LineRenderer;
     Camera m_Camera;
     public GameObject m_Bullet;
-    public Transform m_GunBarrel;
+    public Transform m_GunBarrelL;
+    public Transform m_GunBarrelR;
+
     public Animation m_BarrelRoll;
     // Start is called before the first frame update
     void Start()
@@ -34,11 +36,13 @@ public class Player : MonoBehaviour
             //Vector3 newMousePos = Camera.main.ScreenToWorldPoint(mousePos);
             //Quaternion shotAngle = Quaternion.FromToRotation(m_GunBarrel.position, newMousePos);
             //GameObject bulletTransform =  Instantiate(m_Bullet, m_GunBarrel.position, shotAngle);
-            GameObject bulletTransform = Instantiate(m_Bullet, m_GunBarrel.position, m_GunBarrel.rotation);
+            Instantiate(m_Bullet, m_GunBarrelL.position, m_GunBarrelL.rotation);
+            Instantiate(m_Bullet, m_GunBarrelR.position, m_GunBarrelR.rotation);
+
 
         }
 
-       if (Input.GetKeyDown("r")) 
+        if (Input.GetKeyDown("r")) 
         {
             //DO A BARREL ROLL
             m_BarrelRoll.Play();

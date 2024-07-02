@@ -813,6 +813,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Health: 10
   m_DeathAnimation: {fileID: 268102393}
+  m_HasAnimationFinished: 0
 --- !u!135 &268102395
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1168,6 +1169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Health: 10
   m_DeathAnimation: {fileID: 309160249}
+  m_HasAnimationFinished: 0
 --- !u!135 &309160251
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1556,6 +1558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Health: 10
   m_DeathAnimation: {fileID: 416499858}
+  m_HasAnimationFinished: 0
 --- !u!111 &416499858
 Animation:
   m_ObjectHideFlags: 0
@@ -5237,6 +5240,37 @@ Transform:
   m_Father: {fileID: 789159541}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1434605282
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1434605283}
+  m_Layer: 0
+  m_Name: BulletSpawn (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1434605283
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434605282}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.64, y: -0.27, z: 2.365}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6050391093603578643}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1439150558
 GameObject:
   m_ObjectHideFlags: 0
@@ -5897,11 +5931,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1508857993}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.57, z: 3.57}
+  m_LocalPosition: {x: -0.64, y: -0.27, z: 2.365}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6050391093449721113}
+  m_Father: {fileID: 6050391094045369556}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1530313877
@@ -6443,7 +6477,8 @@ MonoBehaviour:
   m_AimTarget: {fileID: 1055858249}
   m_LineRenderer: {fileID: 1608904874}
   m_Bullet: {fileID: 833846056337931358, guid: 7dffe3c1dad5e7e4c82927954244b795, type: 3}
-  m_GunBarrel: {fileID: 1508857994}
+  m_GunBarrelL: {fileID: 1508857994}
+  m_GunBarrelR: {fileID: 1434605283}
   m_BarrelRoll: {fileID: 5417604329021243712}
 --- !u!65 &1608904871
 BoxCollider:
@@ -8783,6 +8818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Health: 10
   m_DeathAnimation: {fileID: 2107326672}
+  m_HasAnimationFinished: 0
 --- !u!135 &2107326674
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -10788,8 +10824,7 @@ Transform:
   m_LocalPosition: {x: 0.12, y: -1.17, z: 5.193}
   m_LocalScale: {x: 0.540132, y: 0.540132, z: 0.540132}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1508857994}
+  m_Children: []
   m_Father: {fileID: 5417604329021243711}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
@@ -10804,7 +10839,8 @@ Transform:
   m_LocalPosition: {x: 2.4913254, y: -0.545277, z: 0.14902386}
   m_LocalScale: {x: 0.779209, y: 0.779209, z: 0.779209}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1434605283}
   m_Father: {fileID: 5417604329021243711}
   m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
@@ -10819,7 +10855,8 @@ Transform:
   m_LocalPosition: {x: -2.4913301, y: -0.545277, z: 0.14902386}
   m_LocalScale: {x: 0.779209, y: 0.779209, z: 0.779209}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1508857994}
   m_Father: {fileID: 5417604329021243711}
   m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
