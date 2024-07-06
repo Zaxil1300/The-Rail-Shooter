@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -14,10 +15,14 @@ public class Player : MonoBehaviour
     public Transform m_GunBarrelR;
 
     public Animation m_BarrelRoll;
+
+    int layerMask;
+
     // Start is called before the first frame update
     void Start()
     {
         m_Camera = Camera.main;
+        layerMask = LayerMask.GetMask("Target");
     }
 
     // Update is called once per frame
@@ -28,16 +33,64 @@ public class Player : MonoBehaviour
         RotationLook(h, v, m_LookSpeed);
         MovePlayer(h,v,m_Speed);
         HorizontalLean(transform, h, 80, .1f);
-       
-       if (Input.GetMouseButtonDown(0))
+        
+        
+        /*
+        //laser
+        int layerMask = 1 << 8;
+
+        // This would cast rays only against colliders in layer 8.
+        // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
+        layerMask = ~layerMask;
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
         {
+            m_LineRenderer.SetPosition(0, transform.position);
+            m_LineRenderer.SetPosition(1, transform.TransformDirection(Vector3.forward) * hit.distance);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+            Debug.Log("Did Hit");
+        }
+        else
+        {
+            m_LineRenderer.SetPosition(0, transform.position);
+            m_LineRenderer.SetPosition(1, transform.TransformDirection(Vector3.forward) * 10000);
+
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
+            Debug.Log("Did not Hit");
+        }
+        */
+        if (Input.GetMouseButtonDown(0))
+        {
+            Transform aimTarget = null;
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, 100f, layerMask);
+            GameObject closestObject = null;
+            float nearestObject = 100000f;
+            foreach (var hitCollider in hitColliders)
+            {
+                Debug.Log("We hit " + hitCollider.gameObject.name);
+                float distance = Vector3.Distance(hitCollider.transform.position, transform.position); ;
+                if (distance < nearestObject)
+                {
+                    distance = nearestObject;
+                    closestObject = hitCollider.gameObject;
+                }
+            }
+            if (closestObject != null) 
+            {
+                aimTarget = closestObject.transform;
+            }
 
             //Vector3 mousePos = Input.mousePosition;
             //Vector3 newMousePos = Camera.main.ScreenToWorldPoint(mousePos);
             //Quaternion shotAngle = Quaternion.FromToRotation(m_GunBarrel.position, newMousePos);
             //GameObject bulletTransform =  Instantiate(m_Bullet, m_GunBarrel.position, shotAngle);
-            Instantiate(m_Bullet, m_GunBarrelL.position, m_GunBarrelL.rotation);
-            Instantiate(m_Bullet, m_GunBarrelR.position, m_GunBarrelR.rotation);
+            GameObject leftBullet = Instantiate(m_Bullet, m_GunBarrelL.position, m_GunBarrelL.rotation);
+            GameObject rightBullet = Instantiate(m_Bullet, m_GunBarrelR.position, m_GunBarrelR.rotation);
+
+            leftBullet.GetComponent<Bullet>().SetAimTarget(aimTarget);
+            rightBullet.GetComponent<Bullet>().SetAimTarget(aimTarget);
+
+
 
 
         }
@@ -79,8 +132,8 @@ public class Player : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(m_AimTarget.position, .5f);
-       Gizmos.DrawSphere(m_AimTarget.position, .15f);
+        Gizmos.DrawWireSphere(transform.position, 100f);
+        //Gizmos.DrawSphere(transform.position, 100f);
 
     }
 }
